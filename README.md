@@ -17,9 +17,9 @@ the [PyBraille](https://pypi.org/project/pybraille/) library.
 ![demo_screen](demo_screen.jpg?raw=true "DemoScreen")
 
 ## Disclaimer
-This is a demo so I don't advise using it for any serious purpose!
+This is a portfolio project so I don't advise using it for any serious purpose!
 
 ## Credits
 
-Thank you to [Dave](), I used his [RememberThis](https://github.com/AdBanacho/GPT-3-Hackathon) code to help me grok
+Thank you to [Dave](https://twitter.com/azezezaaa), I used his [RememberThis](https://github.com/azezezaaa/rememberthis_OpenAIWhisperHackathon) code to help me grok
 how to use the OpenAI's whisper. I also found LabLab's Whisper [guides](https://lablab.ai/tech/whisper) really helpful. 
