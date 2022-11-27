@@ -4,13 +4,24 @@ from pybraille import convertText
 
 
 # Translate speech to braille
-def speech_to_text(audio, lang=None):
+def speech_to_text(audio):
+    """
+
+    :param audio: Speech data
+    :return: Transcript of speech data
+    """
     model = whisper.load_model('base')
 
     return model.transcribe(audio, language=lang)
 
 
 def transcribe_audio(audio, store=None):
+    """
+
+    :param audio: Speech data from gradio interface
+    :param store: Container for user data
+    :return: Detected language, transcript text, braille translation, session state
+    """
     if store is None:
         store = {}
 
