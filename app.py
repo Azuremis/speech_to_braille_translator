@@ -12,7 +12,7 @@ def speech_to_text(audio):
     """
     model = whisper.load_model('base')
 
-    return model.transcribe(audio, language=lang)
+    return model.transcribe(audio)
 
 
 def transcribe_audio(audio, store=None):
