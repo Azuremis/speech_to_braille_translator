@@ -1,46 +1,51 @@
 import gradio as gr
 import whisper
+from pybraille import convertText
 
 
 # Translate speech to braille
-
-def transcribe_audio(audio, state=None, lang=None):
-    if state is None:
-        state = {}
-
+def speech_to_text(audio, lang=None):
     model = whisper.load_model('base')
-    result = model.transcribe(audio, language=lang)
 
-    state['transcription'] = result['text']
+    return model.transcribe(audio, language=lang)
 
-    return state['transcription'], state, \
-           f"Detected language: {result['language']}"
 
-def generate_braille():
-    pass
+def transcribe_audio(audio, store=None):
+    if store is None:
+        store = {}
+
+    result = speech_to_text(audio)
+    store['transcription'] = result['text']
+    store['braille'] = convertText(store['transcription'])
+
+    return f"Detected language: {result['language']}", store[
+        'transcription'], store['braille'], store
+
 
 # Setup gradio interface
-
 title = "Speech to Braille Translator"
 transcription_tb = gr.Textbox(label="Transcription", lines=10, max_lines=20)
 detected_lang = gr.outputs.HTML(label="Detected Language")
+transcription_braille = gr.Textbox(label="Braille", lines=10, max_lines=20)
+
 state = gr.State({"transcription": ""})
 
 demo = gr.Interface(fn=transcribe_audio,
-             inputs=[
-                 gr.Audio(source="microphone", type="filepath",
-                          streaming=False),
-                 state,
-             ],
-             outputs=[
-                 transcription_tb,
-                 state,
-                 detected_lang,
-             ],
-             # live=True,
-             allow_flagging='never',
-             title=title,
-             )
+                    inputs=[
+                        gr.Audio(source="microphone", type="filepath",
+                                 streaming=False),
+                        state
+                    ],
+                    outputs=[
+                        detected_lang,
+                        transcription_tb,
+                        transcription_braille,
+                        state,
+                    ],
+                    # live=True,
+                    allow_flagging='never',
+                    title=title,
+                    )
 
 # Launch gradio app
 demo.launch()
