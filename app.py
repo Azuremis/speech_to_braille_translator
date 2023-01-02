@@ -35,6 +35,11 @@ def transcribe_audio(audio, store=None):
 
 # Setup gradio interface
 title = "Speech to Braille Translator"
+description = 'This is a Speech to Braille translation demo. The speech-text translation uses the OpenAI ' \
+              '[Whisper](https://openai.com/blog/whisper/) [model](https://github.com/openai/whisper) whilst the text-braille' \
+              'component utilises the [PyBraille](https://pypi.org/project/pybraille/) library. You can find the project on ' \
+              '[Github](https://github.com/Azuremis/speech_to_braille_translator). Made by [Azuremis](https://azuremis.bio.link).'
+
 transcription_tb = gr.Textbox(label="Transcription", lines=10, max_lines=20)
 detected_lang = gr.outputs.HTML(label="Detected Language")
 transcription_braille = gr.Textbox(label="Braille", lines=10, max_lines=20)
@@ -56,6 +61,7 @@ demo = gr.Interface(fn=transcribe_audio,
                     # live=True,
                     allow_flagging='never',
                     title=title,
+                    description=description,
                     )
 
 # Launch gradio app
